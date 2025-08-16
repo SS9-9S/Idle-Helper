@@ -1,0 +1,41 @@
+{
+  "name": "idle-helper",
+  "version": "1.0.1",
+  "description": "A small tray app that moves the mouse naturally at intervals.",
+  "author": "BlueDevLabs <contact@bluedevlabs.com>",
+  "license": "MIT",
+  "main": "main.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "electron-builder install-app-deps",
+    "build:win": "electron-builder --win",
+    "build:mac": "electron-builder --mac",
+    "build": "electron-builder -mwl"
+  },
+  "build": {
+    "appId": "com.bluedevlabs.idlehelper",
+    "productName": "Idle Helper",
+    "files": [
+      "**/*",
+      "!node_modules/.cache/**"
+    ],
+    "asar": true,
+    "win": {
+      "icon": "renderer/icons/idlehelper.ico",
+      "target": [ "nsis" ]
+    },
+    "mac": {
+      "icon": "renderer/icons/IdleHelper.icns",
+      "target": [ "dmg" ]
+    }
+  },
+  "devDependencies": {
+    "electron": "22.3.27",
+    "electron-builder": "^24.13.3"
+  },
+  "dependencies": {
+    "electron-store": "^8.2.0",
+    "robotjs": "0.6.0"
+  }
+}

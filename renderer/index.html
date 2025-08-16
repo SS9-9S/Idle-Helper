@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Idle Helper — Preferences</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <img src="logo.png" alt="IdleHelper Logo" class="logo">
+        <div>
+            <h1>IdleHelper</h1>
+            <p class="subtitle">by BlueDev Labs</p>
+        </div>
+    </header>
+
+  <section class="card">
+    <h2>Status</h2>
+    <div id="statusRow">
+      <span id="statusBadge" class="badge paused">Paused</span>
+      <span id="nextAt"></span>
+    </div>
+    <div class="controls">
+      <button id="startBtn">Start</button>
+      <button id="stopBtn" class="secondary">Pause</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Timing</h2>
+    <div class="grid">
+      <label>Interval (minutes)
+        <input type="number" id="intervalMinutes" min="1" step="1" />
+      </label>
+      <label>Interval variance (0–0.9)
+        <input type="number" id="intervalVariance" min="0" max="0.9" step="0.05" />
+      </label>
+      <label>Skip chance (0–0.5)
+        <input type="number" id="skipChance" min="0" max="0.5" step="0.01" />
+      </label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Movement</h2>
+    <div class="grid">
+      <label>Radius min (px)
+        <input type="number" id="radiusMin" min="10" step="5" />
+      </label>
+      <label>Radius max (px)
+        <input type="number" id="radiusMax" min="20" step="5" />
+      </label>
+      <label>Duration min (ms)
+        <input type="number" id="moveDurationMsMin" min="400" step="100" />
+      </label>
+      <label>Duration max (ms)
+        <input type="number" id="moveDurationMsMax" min="600" step="100" />
+      </label>
+      <label>Jitter (px)
+        <input type="number" id="jitterPx" min="0" step="0.1" />
+      </label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Startup</h2>
+    <label class="check">
+      <input type="checkbox" id="startAtLogin" />
+      Start at login
+    </label>
+  </section>
+
+  <footer>
+      <button id="saveBtn">Save Preferences</button>
+      <a href="https://BlueDevLabs.com" target="_blank" class="support-link">Support</a>
+  </footer>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

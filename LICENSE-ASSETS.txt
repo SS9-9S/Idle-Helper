@@ -1,0 +1,11 @@
+Copyright (c) 2025 BlueDevLabs
+
+All rights reserved.
+
+This file covers all brand and visual assets in this repository, including but not limited to:
+- Logos, icons, wordmarks, app imagery, and screenshots located under /renderer/icons and /assets/brand
+- The names "BlueDevLabs" and "IdleHelper" and associated trademarks
+
+These assets are NOT licensed under the MIT License. You may NOT copy, modify, redistribute, or use these assets in derivative products, marketing materials, app listings, or any other distribution without prior written permission from BlueDevLabs.
+
+You may use the assets solely to build this project from source for personal use and contribution back to this repository. Any other use is prohibited.
