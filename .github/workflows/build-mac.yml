@@ -1,16 +1,16 @@
-name: Build macOS DMG
+name: Build macOS DMG (arm64)
 
 on:
-  workflow_dispatch: {}      # allow manual runs
+  workflow_dispatch: {}
   push:
-    tags: ['v*']             # auto-run when you push a tag like v1.0.1
+    tags: ['v*']
 
 jobs:
-  mac-build:
-    runs-on: macos-13        # or macos-14
-    strategy:
-      matrix:
-        arch: [x64, arm64]   # build both Intel & Apple Silicon
+  mac-arm64:
+    runs-on: macos-14
+    env:
+      npm_config_build_from_source: true   # for robotjs
+      MACOSX_DEPLOYMENT_TARGET: "11.0"
     steps:
       - uses: actions/checkout@v4
 
@@ -18,14 +18,41 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install deps
+      - name: Install deps (from lockfile)
         run: npm ci
 
-      - name: Build DMG
-        run: npx electron-builder --mac dmg --${{ matrix.arch }} -p never
+      - name: Ensure dmg-license is present
+        run: |
+          npm i -D dmg-license@^1.0.11
+          npm ls dmg-license || true
 
-      - name: Upload artifact
+      # Remove this whole step if you already committed renderer/icons/IdleHelper.icns
+      - name: Generate .icns from .ico if missing
+        run: |
+          if [ ! -f renderer/icons/IdleHelper.icns ]; then
+            brew install imagemagick || true
+            convert renderer/icons/idlehelper.ico -resize 1024x1024 tmp.png
+            mkdir -p IdleHelper.iconset
+            sips -z 16 16    tmp.png --out IdleHelper.iconset/icon_16x16.png
+            sips -z 32 32    tmp.png --out IdleHelper.iconset/icon_16x16@2x.png
+            sips -z 32 32    tmp.png --out IdleHelper.iconset/icon_32x32.png
+            sips -z 64 64    tmp.png --out IdleHelper.iconset/icon_32x32@2x.png
+            sips -z 128 128  tmp.png --out IdleHelper.iconset/icon_128x128.png
+            sips -z 256 256  tmp.png --out IdleHelper.iconset/icon_128x128@2x.png
+            sips -z 256 256  tmp.png --out IdleHelper.iconset/icon_256x256.png
+            sips -z 512 512  tmp.png --out IdleHelper.iconset/icon_256x256@2x.png
+            sips -z 512 512  tmp.png --out IdleHelper.iconset/icon_512x512.png
+            cp tmp.png IdleHelper.iconset/icon_512x512@2x.png
+            iconutil -c icns IdleHelper.iconset
+            mkdir -p renderer/icons
+            mv IdleHelper.icns renderer/icons/IdleHelper.icns
+          fi
+
+      - name: Build DMG (arm64, unsigned)
+        run: npx electron-builder --mac dmg --arm64 -p never
+
+      - name: Upload DMG artifact
         uses: actions/upload-artifact@v4
         with:
-          name: IdleHelper-mac-${{ matrix.arch }}
+          name: IdleHelper-mac-arm64
           path: dist/*.dmg
