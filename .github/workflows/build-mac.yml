@@ -18,15 +18,15 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install deps (from lockfile)
-        run: npm ci
+      # Use npm install (not ci) so it can resolve/update deps in CI
+      - name: Install deps
+        run: npm install --no-audit --no-fund
 
-      - name: Ensure dmg-license is present
-        run: |
-          npm i -D dmg-license@^1.0.11
-          npm ls dmg-license || true
+      # Ensure dmg-license is present (needed for DMG builds)
+      - name: Ensure dmg-license
+        run: npm i -D dmg-license@^1.0.11
 
-      # Remove this whole step if you already committed renderer/icons/IdleHelper.icns
+      # Only needed if your repo doesn't already contain this file
       - name: Generate .icns from .ico if missing
         run: |
           if [ ! -f renderer/icons/IdleHelper.icns ]; then
