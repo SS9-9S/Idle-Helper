@@ -6,10 +6,6 @@ Natural, human-like mouse movement to prevent idle.
 - Tray controls + preferences UI
 - Windows & macOS (builds on each OS)
 
-## Install
-- **Windows**: download `Idle Helper Setup` from Releases and run it.
-- **macOS**: build on a Mac (`npm run build:mac`) and open the DMG.
-
 ## Usage
 Open the preferences window, set Interval/Variance/Jitter, click **Start**.
 
@@ -31,3 +27,4 @@ npm run build:win
 - **Brand & Icons:** Not open source. All rights reserved — see [LICENSE-ASSETS.txt](./LICENSE-ASSETS.txt).  
 
   You may not reuse the IdleHelper/BlueDevLabs logos, icons, or names in derivative builds or marketing.
+
