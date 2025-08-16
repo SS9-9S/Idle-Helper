@@ -18,16 +18,16 @@ jobs:
         with:
           node-version: '20'
 
-      # Use npm install (not ci) so it can resolve/update deps in CI
+      # Use npm install (not ci) so it can resolve deps even if lockfile isn't updated
       - name: Install deps
         run: npm install --no-audit --no-fund
 
-      # Ensure dmg-license is present (needed for DMG builds)
+      # Ensure dmg-license is present (required for DMG build)
       - name: Ensure dmg-license
         run: npm i -D dmg-license@^1.0.11
 
-      # Only needed if your repo doesn't already contain this file
-      - name: Generate .icns from .ico if missing
+      # Remove this step if you already committed renderer/icons/IdleHelper.icns
+      - name: Generate .icns if missing
         run: |
           if [ ! -f renderer/icons/IdleHelper.icns ]; then
             brew install imagemagick || true
