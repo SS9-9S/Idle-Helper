@@ -23,16 +23,16 @@
     "asar": true,
     "win": {
       "icon": "renderer/icons/idlehelper.ico",
-      "target": [ "nsis" ]
+      "target": ["nsis"]
     },
     "mac": {
       "icon": "renderer/icons/IdleHelper.icns",
-      "target": [ "dmg" ]
+      "target": ["dmg"]
     }
   },
   "devDependencies": {
     "electron": "22.3.27",
-    "electron-builder": "^24.13.3"
+    "electron-builder": "^24.13.3",
     "dmg-license": "^1.0.11"
   },
   "dependencies": {
@@ -40,4 +40,3 @@
     "robotjs": "0.6.0"
   }
 }
-
